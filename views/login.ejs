@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        /* Cabeçalho */
+        .header {
+    display: flex;
+    justify-content: flex-start; /* Força o alinhamento à esquerda */
+    align-items: center;
+    background-color: #737373; /* Cor do cabeçalho */
+    padding: 15px 30px;
+    border-bottom: 2px solid #ddd;
+    position: relative;
+}
+
+/* Logo */
+.header img {
+    height: 60px;  /* Tamanho da logo */
+    width: auto;
+    margin-left: 0; /* Garante que a logo fique bem no começo à esquerda */
+}
+
+/* Container para o saldo */
+.saldo-container {
+    position: absolute; /* Fixando o saldo à direita */
+    right: 30px; /* Distância da borda direita */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* O saldo será mostrado como um botão rosa */
+.saldo-container .saldo {
+    background-color: #e91e63;  /* Cor rosa do logo */
+    color: white;
+    font-size: 16px;  /* Tamanho ajustado para ser proporcional aos outros botões */
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.saldo-container .saldo:hover {
+    background-color: #d81b60;
+}
+
+        /* Mensagem "Você ganhou R$ 35,00 para começar!" (com imagem) */
+        #mensagem-inicial {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            display: none;  /* Inicialmente escondido */
+        }
+
+        /* Foto ou Vídeo para avaliação */
+        .foto-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .foto-container img,
+        .foto-container video {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* A imagem "vsli" fica acima do vídeo da VSL */
+        #vsli-img {
+            display: none;
+            margin-bottom: 20px;  /* Coloca um espaçamento acima do vídeo */
+        }
+
+        .patrocinado {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        .pergunta {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+        }
+
+        /* Estilo do botão */
+        .avaliacao-buttons button {
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            border-radius: 5px;  /* Botão com bordas arredondadas */
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;  /* Coloca o texto em negrito */
+            transition: border-color 0.3s ease;
+            background-color: #FF4081;
+            color: white;
+        }
+
+        .avaliacao-buttons button:hover {
+            opacity: 0.8;
+        }
+
+        /* Estilo de responsividade */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;  /* Logo e saldo na coluna em vez de linha */
+                align-items: center;
+            }
+
+            .saldo-container {
+                margin-top: 10px;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .foto-container img,
+            .foto-container video {
+                max-width: 90%;
+                height: auto;
+            }
+        }
+
+        /* Estilo para o botão após o vídeo */
+        .avaliador-btn {
+            display: none;
+            background-color: #e91e63;  /* Cor igual ao logo */
+            color: white;
+            font-size: 18px;
+            padding: 15px 32px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .avaliador-btn:hover {
+            background-color: #d81b60;  /* Cor ao passar o mouse */
+        }
+
+        /* Estilos para os Popups */
+        .popup-1, .popup-2 {
+            display: none;  /* Inicialmente oculto */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;  /* Fundo branco */
+            color: #333;
+            padding: 20px;
+            border-radius: 15px; /* Bordas arredondadas */
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombras para dar efeito */
+            z-index: 999;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        /* Estilo do texto abaixo do vídeo */
+        .texto-video {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Estilo para o botão "Ver vídeo" */
+        #popup-2 button {
+            background-color: #e91e63;  /* Cor do botão rosa */
+            color: white;
+            font-size: 18px;
+            padding: 15px 32px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #popup-2 button:hover {
+            background-color: #d81b60;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="header-container">
+            <img src="/images/logo.png" alt="Logo PrivCash" /> <!-- Logo rosa -->
+            <div class="saldo-container">
+                <span class="saldo" id="saldo">R$ 35,00</span> <!-- Saldo em um botão rosa -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensagem inicial (Imagem) -->
+    <div id="mensagem-inicial">
+        <img src="/images/cabeçalho.jpg" alt="Mensagem de Boas-Vindas"> <!-- Imagem de boas-vindas -->
+    </div>
+
+    <!-- Foto ou Vídeo para avaliação -->
+    <div class="foto-container">
+        <p class="patrocinado" id="patrocinado">Patrocinado</p> <!-- "Patrocinado" à direita -->
+        <img id="avaliacao-img" src="/images/foto1.jpg" alt="Foto de Avaliação" />
+        <video id="avaliacao-video" autoplay loop style="display:none;" muted>
+            <source src="/videos/video1.mp4" type="video/mp4">
+        </video>
+
+        <!-- Adicionando a imagem "vsli" acima do vídeo da VSL -->
+        <div id="vsli-img">
+            <img src="/images/vsli.jpg" alt="Imagem VSL" />
+        </div>
+
+        <p class="pergunta" id="pergunta">Qual o nível de safadeza dessa foto?</p>
+
+        <div class="avaliacao-buttons">
+            <button class="otima" id="btn-otima" onclick="avaliarFoto('Ótima')">❤️ Ótima</button>
+            <button class="media" id="btn-media" onclick="avaliarFoto('Média')">💎 Média</button>
+            <button class="pouca" id="btn-pouca" onclick="avaliarFoto('Pouca')">💍 Pouca</button>
+        </div>
+    </div>
+
+    <!-- Popup 1 (Quanto ganhou) -->
+    <div id="popup-1" class="popup-1">
+        Você ganhou R$ <span id="valor-ganho">0.00</span> para começar!
+        <br><br>
+    </div>
+
+    <!-- Popup 2 (Baixar aplicativo) -->
+    <div id="popup-2" class="popup-2">
+        Baixe o aplicativo e saque seu saldo!
+        <br><br>
+        <span id="total-saldo">Total R$ 0.00</span>
+        <br><br>
+        Veja o vídeo de 2 minutos e saque para sua conta bancária!
+        <br><br>
+        <button onclick="verVideo()">VER VÍDEO</button>
+    </div>
+
+    <!-- Texto "Saque seu saldo no final do vídeo" -->
+    <div id="texto-video" class="texto-video">
+        Saque seu saldo no final do vídeo!
+    </div>
+
+    <script>
+        let currentPhotoIndex = 0; // Inicializa o índice da foto/vídeo
+        let saldoAtual = 35.00; // Saldo inicial
+        const photos = ["/images/foto1.jpg", "/images/foto2.jpg", "/images/foto3.jpg", "/images/foto4.jpg", "/images/foto5.jpg", "/images/foto6.jpg"]; // Lista de fotos
+        const videos = ["/videos/video1.mp4", "/videos/video2.mp4"]; // Lista de vídeos
+        const perguntas = [
+            { pergunta: "Qual o nível de safadeza dessa foto?", respostas: ["Ótima", "Média", "Pouca"] },
+            { pergunta: "Você gostaria de me ver todo dia assim?", respostas: ["Sim", "Não"] },
+            { pergunta: "Pagaria para ver conteúdos assim?", respostas: ["Sim", "Não"] }
+        ]; // Perguntas
+
+        let avaliacaoCount = 0; // Contador para perguntas e avaliações
+
+        // Função para randomizar e exibir a próxima pergunta
+        function exibirPergunta() {
+            if (avaliacaoCount >= perguntas.length) return; // Limita a 3 perguntas
+
+            const perguntaAtual = perguntas[avaliacaoCount];
+            document.getElementById("pergunta").textContent = perguntaAtual.pergunta;
+        }
+
+        // Função para avaliar foto ou vídeo
+        function avaliarFoto(nivelDeSafadeza) {
+            const valorAvaliado = (Math.random() * (55 - 25) + 25).toFixed(2); // Gera um valor entre 25 e 55 reais
+            saldoAtual += parseFloat(valorAvaliado);
+            document.getElementById("saldo").textContent = `R$ ${saldoAtual.toFixed(2)}`; // Atualiza o saldo
+
+            // Exibe o popup de quanto ganhou
+            document.getElementById("valor-ganho").textContent = valorAvaliado;  // Exibe o valor ganho
+            document.getElementById("popup-1").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("popup-1").style.display = "none";
+            }, 2000);
+
+            avaliacaoCount++; // Incrementa a contagem de avaliações feitas
+
+            nextPhoto(); // Atualiza para a próxima foto/vídeo
+            exibirPergunta(); // Exibe a próxima pergunta
+
+            // Remover a mensagem "Você ganhou R$ 35,00" após a avaliação
+            if (avaliacaoCount > 0) {
+                document.getElementById("mensagem-inicial").style.display = "none";
+            }
+        }
+
+        // Função para alternar entre foto e vídeo
+        function nextPhoto() {
+            if (avaliacaoCount >= 3) {
+                document.getElementById("popup-2").style.display = "block";
+                document.getElementById("total-saldo").textContent = `Total R$ ${saldoAtual.toFixed(2)}`;
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * photos.length);
+            const photoToShow = photos[randomIndex];  // Sorteia a foto
+
+            const videoElement = document.getElementById('avaliacao-video');
+            const imgElement = document.getElementById('avaliacao-img');
+
+            imgElement.src = photoToShow;
+            imgElement.style.display = 'block';
+            videoElement.style.display = 'none';
+
+            document.getElementById("pergunta").style.display = 'block';  // Exibe a pergunta
+        }
+
+        // Função para mostrar o vídeo da VSL e o botão após 30 segundos
+        function verVideo() {
+            // Desabilita os botões de avaliação
+            document.getElementById("btn-otima").disabled = true;
+            document.getElementById("btn-media").disabled = true;
+            document.getElementById("btn-pouca").disabled = true;
+
+            // Remove a imagem, o vídeo e a pergunta
+            document.getElementById("avaliacao-img").style.display = "none";
+            document.getElementById("avaliacao-video").style.display = "block";
+            document.getElementById("pergunta").style.display = "none";
+            document.getElementById("patrocinado").style.display = "none"; // Remove o patrocinado
+            document.querySelector('.avaliacao-buttons').style.display = "none"; // Remove os botões de avaliação
+
+            // Exibe a imagem "vsli" antes do vídeo
+            document.getElementById("vsli-img").style.display = "block";
+
+            // Exibe o vídeo da VSL
+            const vslVideo = "/videos/VSL.mp4"; // Caminho para o vídeo VSL
+            document.getElementById("avaliacao-video").src = vslVideo;
+
+            // Exibe o texto "Saque seu saldo no final do vídeo"
+            document.getElementById("texto-video").style.display = "block";
+
+            document.getElementById("popup-2").style.display = "none";
+
+            // Após 30 segundos, exibe o botão "Tornar-se um avaliador Agora"
+            setTimeout(function() {
+                const btn = document.createElement("button");
+                btn.classList.add("avaliador-btn");
+                btn.textContent = "Tornar-se um avaliador Agora";
+                btn.onclick = function() {
+                    alert("Você se tornou um avaliador!");
+                    // Redirecionamento ou outras ações podem ser feitas aqui
+                };
+                document.body.appendChild(btn);
+                btn.style.display = "inline-block"; // Exibe o botão
+            }, 30000); // 30 segundos
+        }
+
+        // Desabilitar o botão direito do mouse em toda a página
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+
+        // Inicia com a primeira pergunta randomizada
+        exibirPergunta();
+
+        // Exibir a imagem inicial "Você ganhou R$ 35,00 para começar!" na primeira avaliação
+        document.getElementById("mensagem-inicial").style.display = "block";
+    </script>
+
+</body>
+</html>

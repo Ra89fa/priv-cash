@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vídeo - Visualize seu saldo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        video {
+            width: 80%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .texto-video {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <p>Saldo: R$ <%= saldo.toFixed(2) %></p>
+    </div>
+
+    <!-- Vídeo -->
+    <video autoplay loop muted>
+        <source src="/videos/VSL.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo.
+    </video>
+
+    <!-- Texto abaixo do vídeo -->
+    <div class="texto-video">
+        <p>Saque seu saldo no final do vídeo!</p>
+    </div>
+
+</body>
+</html>

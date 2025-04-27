@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
-// Criando o modelo de Avaliação
 const avaliacaoSchema = new mongoose.Schema({
     fotoId: { type: Number, required: true },
-    nivelDeSafadeza: { type: String, required: true },  // Ótima, Média, Pouca
-    data: { type: Date, default: Date.now },  // Data da avaliação
+    nivelDeSafadeza: { type: String, required: true },
+    data: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Avaliacao', avaliacaoSchema);
+const Avaliacao = mongoose.model('Avaliacao', avaliacaoSchema);
+
+module.exports = Avaliacao;

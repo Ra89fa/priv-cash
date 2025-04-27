@@ -1,78 +1,31 @@
-/* Resetando estilos */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Estilos Gerais */
-body {
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Cabeçalho */
-header {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
-
-header .logo h1 {
-    font-size: 2em;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1em;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
-nav .btn-cadastro {
-    background-color: #ff5733;
+/* Estilos para o botão de saldo */
+nav .btn-saldo {
+    background-color: #28a745;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
     text-decoration: none;
+    font-size: 1.1em;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-nav .btn-cadastro:hover {
-    background-color: #c74029;
+nav .btn-saldo:hover {
+    background-color: #218838;
 }
 
-/* Seção Hero */
-.hero {
-    background-color: #333;
-    color: white;
-    padding: 50px 20px;
+/* Estilos para a seção de valor por avaliação */
+.avaliacao-info {
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-top: 20px;
     text-align: center;
+    border-radius: 5px;
 }
 
-.hero h2 {
-    font-size: 3em;
-    margin-bottom: 20px;
-}
-
-.hero p {
+.avaliacao-info p {
     font-size: 1.2em;
-    margin-bottom: 30px;
+    font-weight: bold;
+    color: #333;
 }
 
 .hero .btn {
@@ -88,31 +41,70 @@ nav .btn-cadastro:hover {
     background-color: #c74029;
 }
 
-/* Rodapé */
-footer {
-    background-color: #1a1a1a;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
+/* Estilo do Rodapé */
+.footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #737373; /* Cor do fundo do rodapé */
+    padding: 10px 0;
     position: fixed;
-    width: 100%;
     bottom: 0;
+    width: 100%;
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 768px) {
-    header .logo h1 {
-        font-size: 1.5em;
-    }
 
-    .hero h2 {
-        font-size: 2em;
-    }
+.footer button {
+    background-color: #fff;
+    color: #737373;
+    font-size: 14px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-    .hero p {
-        font-size: 1em;
-    }
+.footer button:hover {
+    background-color: #e91e63;  /* Cor da logo */
+    color: white;
+}
 
-    .hero .btn {
-        font-size: 1em;
-        padding: 10px 20px;
-    }
+.footer button.active {
+    background-color: #e91e63;
+    color: white;
+}
+
+/* Estilos gerais */
+button {
+    background-color: #e91e63; /* Cor da logo */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d81b60;
+}
+
+.saldo {
+    background-color: #e91e63;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.home-button {
+    background-color: #e91e63;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.home-button:hover {
+    background-color: #d81b60;
 }

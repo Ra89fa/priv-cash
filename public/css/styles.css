@@ -1,7 +1,7 @@
 /* Estilos para o botão de saldo */
 nav .btn-saldo {
     background-color: #28a745;
-    color: white;
+    color: #737373;
     padding: 10px 20px;
     text-decoration: none;
     font-size: 1.1em;
@@ -15,7 +15,7 @@ nav .btn-saldo:hover {
 
 /* Estilos para a seção de valor por avaliação */
 .avaliacao-info {
-    background-color: #f1f1f1;
+    background-color: #737373;
     padding: 20px;
     margin-top: 20px;
     text-align: center;
@@ -30,7 +30,7 @@ nav .btn-saldo:hover {
 
 .hero .btn {
     background-color: #ff5733;
-    color: white;
+    color: #737373;
     padding: 15px 30px;
     font-size: 1.2em;
     text-decoration: none;

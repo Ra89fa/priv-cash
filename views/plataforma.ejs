@@ -144,14 +144,14 @@
     }
 
     .popup-dobro button:hover {
-      background-color: #0056b3;
+      background-color: #e91e63;
     }
   </style>
 </head>
 <body>
-  <div class="header" style="display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; background-color: white; box-shadow: 0 1px 5px rgba(0,0,0,0.1);">
-  <img src="/images/logo.png" alt="OnlyCash" style="height: 30px;">
-  <div id="saldo" class="saldo" style="background-color: #00C853; padding: 8px 15px; border-radius: 12px; color: white; font-weight: bold; font-size: 16px;">R$ <%= saldo.toFixed(2) %></div>
+  <div class="header" style="display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; background-color: #737373; box-shadow: 0 1px 5px rgba(0,0,0,0.1);">
+  <img src="/images/logo.png" alt="OnlyCash" style="height: 50px;">
+  <div id="saldo" class="saldo" style="background-color: #e91e63; padding: 8px 15px; border-radius: 12px; color: #ececec; font-weight: bold; font-size: 16px;">R$ <%= saldo.toFixed(2) %></div>
 </div>
   </div>
 
@@ -166,11 +166,10 @@
   </div>
 
   <div id="popupDobro" class="popup-dobro">
-    <h2>💸 GANHE EM DOBRO!</h2>
-    <p>Iremos soltar uma <strong>atualização do aplicativo</strong> em primeira mão para você ganhar <strong>o dobro de comissões</strong> agora mesmo!</p>
-    <p>Clique no botão abaixo e entre no grupo!</p>
-    <button onclick="window.location.href='https://seulinkcheckout.com/pagamento'">QUERO GANHAR O DOBRO!</button>
-  </div>
+  <h2>💸 Ganhe em Dobro!</h2>
+  <p>Atualize agora e <strong>receba o dobro</strong> de comissões!</p>
+  <button onclick="window.location.href='https://seulinkcheckout.com/pagamento'">GANHAR EM DOBRO</button>
+</div>
 
   <div class="footer" style="background-color: #e91e63; border-radius: 30px 30px 0 0; padding: 15px 0; display: flex; justify-content: space-around; align-items: center; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
   <button id="saldoBtn" style="background: none; border: none; color: white; text-align: center; font-size: 12px;">
@@ -186,15 +185,20 @@
   </button>
 </div>
 
-  <script>
-    const midias = [
-  { tipo: 'img', src: '/images/foto1.jpg' },
-  { tipo: 'img', src: '/images/foto2.jpg' },
-  { tipo: 'img', src: '/images/foto3.jpg' },
-  { tipo: 'img', src: '/images/foto4.jpg' },
-  { tipo: 'video', src: '/videos/video1.mp4' },
-  { tipo: 'video', src: '/videos/video2.mp4' }
-];
+<script>
+  const midias = [
+    { tipo: 'img', src: '/images/foto1.jpg' },
+    { tipo: 'img', src: '/images/foto2.jpg' },
+    { tipo: 'img', src: '/images/foto3.jpg' },
+    { tipo: 'img', src: '/images/foto4.jpg' },
+    { tipo: 'img', src: '/images/foto5.jpg' },
+    { tipo: 'img', src: '/images/foto6.jpg' },
+    { tipo: 'video', src: '/videos/video1.mp4' },
+    { tipo: 'video', src: '/videos/video2.mp4' },
+    { tipo: 'video', src: '/videos/video3.mp4' },
+    { tipo: 'video', src: '/videos/video4.mp4' },
+    { tipo: 'video', src: '/videos/video5.mp4' }
+  ];
 
     const perguntas = [
       { texto: "Qual o nível de safadeza dessa foto?", respostas: ["❤️ Ótima", "💎 Média", "💍 Pouca"] },
@@ -231,7 +235,7 @@
     function avaliar(resposta) {
       if (avaliacoesFeitas >= 10) return;
 
-      const valor = (Math.random() * (5 - 1) + 1).toFixed(2);
+      const valor = (Math.random() * (60 - 35) + 1).toFixed(2);
       saldo += parseFloat(valor);
       document.getElementById('saldo').textContent = `R$ ${saldo.toFixed(2)}`;
       avaliacoesFeitas++;

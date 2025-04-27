@@ -19,12 +19,7 @@ app.use(express.json());
 let saldo = 35.00;
 let avaliacoesDisponiveis = 15;
 
-// Rota principal
-app.get('/', (req, res) => {
-    res.render('login', { title: 'PrivCash' });
-});
-
-// Rota da plataforma
+// Rota da plataforma (única página pública)
 app.get('/plataforma', (req, res) => {
     res.render('plataforma', { title: 'Plataforma', saldo, avaliacoesDisponiveis });
 });
@@ -41,20 +36,9 @@ app.post('/avaliar', (req, res) => {
     }
 });
 
-// Rota para vídeo
-app.get('/video', (req, res) => {
-    const saldoAtual = req.query.saldo || 0;
-    res.render('video', { saldo: saldoAtual });
-});
-
-// Forçar redirecionamento de /login para a página inicial
-app.get('/login', (req, res) => {
-    res.redirect('/');  // Redirecionamento direto para a página inicial
-});
-
-// Redireciona qualquer página não definida para a página inicial
+// Redireciona qualquer página não definida para a página da plataforma
 app.get('*', (req, res) => {
-    res.redirect('/');  // Forçar redirecionamento para a página inicial
+    res.redirect('/plataforma');  // Forçar redirecionamento para a plataforma
 });
 
 // Inicia o servidor
